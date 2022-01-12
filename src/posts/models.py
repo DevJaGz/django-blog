@@ -27,6 +27,9 @@ class Post(models.Model):
         print("******URL:", url)
         return url
     
+    def get_like_url(self):
+        return reverse("like", kwargs={"slug": self.slug})
+    
     @property
     def get_comment_count(self):
         return self.comment_set.all().count()
@@ -38,6 +41,10 @@ class Post(models.Model):
     @property
     def get_like_count(self):
         return self.like_set.all().count()    
+    
+    @property
+    def comments(self):
+        return self.comment_set.all().order_by('-timestamp')
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
