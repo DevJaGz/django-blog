@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.shortcuts import reverse
 
 
 class User(AbstractUser):
@@ -16,9 +17,15 @@ class Post(models.Model):
     publish_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    slug = models.SlugField()
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        url = reverse("detail", kwargs={"slug": self.slug})
+        print("******URL:", url)
+        return url
 
 
 class Comment(models.Model):

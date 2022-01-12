@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Vista: {{view | title}}</h1>
+<div class="d-flex flex-wrap">
+  {% for object in object_list %}
+  <div class="p-2">
+    <a href="{{object.get_absolute_url}}">
+      <div class="card" style="width: 18rem">
+        <img src="{{object.thumbnail.url}}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{object.title | title}}</h5>
+          <p class="card-text">{{object.content | truncatechars:40}}</p>
+
+          <hr />
+          <p>
+            <span>View Count</span>
+            <span>Like Count</span>
+            <span>Comment Count</span>
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}
